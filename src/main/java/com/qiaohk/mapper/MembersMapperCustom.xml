@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qiaohk.mapper.MembersMapperCustom">
+
+
+	<select id="findMemberByLoginName" parameterType="java.lang.String"
+		resultType="com.qiaohk.po.MembersCustom">
+		SELECT * FROM member WHERE loginName = #{loginName}
+	</select>
+	
+	<insert id="createMember" parameterType="com.qiaohk.po.MembersCustom">
+		<!-- 返回添加记录的id -->
+		<selectKey resultType="Integer" keyProperty="idUser" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO
+		member(loginName,passwd,name)
+		VALUES
+		('${loginName}','${passwd}','${name}')
+	</insert>
+</mapper>
